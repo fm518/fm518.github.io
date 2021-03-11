@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#6c599f">
+<meta name="generator" content="Hexo 5.3.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-16x16.png">
+  <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/safari-pinned-tab.svg" color="#6c599f">
+  <meta name="google-site-verification" content="SJUudYL5q_atXSgew2qwy69FXOnSnNB2rAmwHmcBT9U">
+  <meta name="baidu-site-verification" content="wvc37nzEad">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Sans:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"0272020.xyz","root":"/","images":"https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="在服务器上部署 Hexo 静态博客有两种方案，一是直接把源代码推送到服务器上，然后在服务器上安装 Node.js 和 hexo-cli，从而直接在服务器上构建网页文件并部署；二是依旧按照之前部署到对象存储的方案，用 GitHub 作为源代码托管，然后用 GitHub Actions 构建网页文件，再同步到服务器的网站根目录下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器部署 Hexo 博客和看板娘 Live2D API">
+<meta property="og:url" content="https://0272020.xyz/posts/47/">
+<meta property="og:site_name" content="LEE.">
+<meta property="og:description" content="在服务器上部署 Hexo 静态博客有两种方案，一是直接把源代码推送到服务器上，然后在服务器上安装 Node.js 和 hexo-cli，从而直接在服务器上构建网页文件并部署；二是依旧按照之前部署到对象存储的方案，用 GitHub 作为源代码托管，然后用 GitHub Actions 构建网页文件，再同步到服务器的网站根目录下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/47/live2d.png!600x">
+<meta property="article:published_time" content="2020-04-15T11:45:00.000Z">
+<meta property="article:modified_time" content="2021-03-11T00:25:46.481Z">
+<meta property="article:author" content="LEE.">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="持续集成">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://website-1256060851.file.myqcloud.com/posts/47/live2d.png!600x">
+
+
+<link rel="canonical" href="https://0272020.xyz/posts/47/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<link rel="preconnect" href="https://anlu-1253254122.file.myqcloud.com" crossorigin>
+<link rel="preconnect" href="https://sdn.geekzu.org" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xiangsudian/CaoMei/style.min.css">
+
+<title>服务器部署 Hexo 博客和看板娘 Live2D API | LEE.</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141207776-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141207776-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LEE." type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">LEE.</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">分享 & 记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fas fa-home fa-fw"></i>本站首页</a></li>
+        
+            
+  <li class="menu-item menu-item-overview"><a href="/overview/" rel="section"><i class="fas fa-archive fa-fw"></i>文章总览</a></li>
+
+
+      
+        <li class="menu-item menu-item-photos"><a href="/photos/" rel="section"><i class="fas fa-camera-retro fa-fw"></i>光影留痕</a></li>
+        <li class="menu-item menu-item-more"><a href="/more/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>关于更多</a></li>
+        <li class="menu-item menu-item-friends"><a href="/friends/" rel="section"><i class="fas fa-heart fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%80%9A%E8%BF%87-GitHub-Actions-%E9%83%A8%E7%BD%B2-Hexo"><span class="nav-text">1. 通过 GitHub Actions 部署 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B0%86%E8%90%8C%E8%90%8C%E5%93%92%E7%9C%8B%E6%9D%BF%E5%A8%98%E6%8A%B1%E5%9B%9E%E5%AE%B6"><span class="nav-text">2. 将萌萌哒看板娘抱回家</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LEE."
+      src="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+  <p class="site-author-name" itemprop="name">LEE.</p>
+  <div class="site-description" itemprop="description">阅读/互联网/听歌/纪录片/电影</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/overview/timeline">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/overview/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/overview/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/1465528845" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;1465528845" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/626127114" title="哔哩哔哩 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;626127114" rel="noopener" target="_blank"><i class="czs-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/fm518" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fm518" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0272020.xyz/posts/47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+      <meta itemprop="name" content="LEE.">
+      <meta itemprop="description" content="阅读/互联网/听歌/纪录片/电影">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LEE.">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          服务器部署 Hexo 博客和看板娘 Live2D API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发布：</span>
+
+      <time title="创建时间：2020-04-15 19:45:00" itemprop="dateCreated datePublished" datetime="2020-04-15T19:45:00+08:00">2020-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类：</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/overview/%E7%A7%91%E6%8A%80%E6%A0%91/" itemprop="url" rel="index"><span itemprop="name">科技树</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">评论：</span>
+  
+    <a title="waline" href="/posts/47/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/47/" data-xid="/posts/47/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/posts/47/" class="post-meta-item leancloud_visitors" data-flag-title="服务器部署 Hexo 博客和看板娘 Live2D API" title="阅读">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://website-1256060851.file.myqcloud.com/posts/47/live2d.png!600x"></p>
+<p>在服务器上部署 Hexo 静态博客有两种方案，一是直接把源代码推送到服务器上，然后在服务器上安装 Node.js 和 hexo-cli，从而直接在服务器上构建网页文件并部署；二是依旧按照之前部署到对象存储的方案，用 GitHub 作为源代码托管，然后用 GitHub Actions 构建网页文件，再同步到服务器的网站根目录下。<a id="more"></a>这里，我选择后一种方案，这样修改的地方比较少，也比较方便。</p>
+<h2 id="1-通过-GitHub-Actions-部署-Hexo"><a href="#1-通过-GitHub-Actions-部署-Hexo" class="headerlink" title="1. 通过 GitHub Actions 部署 Hexo"></a>1. 通过 GitHub Actions 部署 Hexo</h2><p>首先，修改原来的 GitHub Actions 脚本，删去部署到阿里云 OSS 的内容，添加如下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">server</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.2</span></span><br><span class="line">  <span class="attr">env:</span></span><br><span class="line">    <span class="attr">ARGS:</span> <span class="string">&quot;-avz --delete&quot;</span></span><br><span class="line">    <span class="attr">SOURCE:</span> <span class="string">&quot;public/&quot;</span> <span class="comment"># 要同步到服务器的目录</span></span><br><span class="line">    <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span> <span class="comment"># 配置在服务器上公钥所对应的私钥</span></span><br><span class="line">    <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_HOST</span> <span class="string">&#125;&#125;</span> <span class="comment"># 服务器 IP 地址</span></span><br><span class="line">    <span class="attr">REMOTE_PORT:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_PORT</span> <span class="string">&#125;&#125;</span> <span class="comment"># SSH 连接端口</span></span><br><span class="line">    <span class="attr">REMOTE_USER:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_USER</span> <span class="string">&#125;&#125;</span> <span class="comment"># 服务器 SSH 连接用户名，如 root</span></span><br><span class="line">    <span class="attr">TARGET:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.REMOTE_TARGET</span> <span class="string">&#125;&#125;</span> <span class="comment"># 服务器上对应网站的根目录</span></span><br></pre></td></tr></table></figure>
+<p>对于上述变量，我们直接添加在代码仓库设置的 Secrets 中即可。对于阿里云轻量应用服务器，可以在控制台很容易地生成密钥对，并下载由于连接服务器的私钥（生成后重启一下服务器）。</p>
+<p>设置好 GitHub Actions 各项参数之后，需要在宝塔面板上创建网站，并设置域名等内容，这里就不详细介绍。如果需要 Let’s Encrypt SSL 通配符证书，可能还需要进行 DNS 解析认证，这就需要我们去域名解析提供商那边获取一个可以编辑 DNS 解析记录的 token，方便宝塔面板自动配置解析记录。</p>
+<p>最后，因为 GitHub Actions 同步到服务器网站目录过程中用到了 rsync 这一数据镜像备份工具，所以需要先在服务器上安装好 rsync：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install rsync</span><br></pre></td></tr></table></figure>
+<p><strong>备注</strong>：如果服务器提供商的控制台没有自动配置密钥对的功能，可以在服务器上手动生成。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入用户 SSH 密钥存储目录</span></span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line"><span class="comment"># 列出目录中内容，确认是否已拥有密钥</span></span><br><span class="line">ls</span><br><span class="line"><span class="comment"># 生成 SSH 密钥</span></span><br><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>首先 <code>ssh-keygen</code> 会确认密钥的存储位置（默认是 <code>.ssh/id_rsa</code>），然后它会要求你输入两次密钥口令。 如果你不想在使用密钥时输入口令，将其留空即可。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将公钥内容写入 authorized_keys</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"><span class="comment"># 列出私钥的内容</span></span><br><span class="line">cat ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<p>最后，我们把私钥的内容复制到 GitHub 代码仓库设置的 Secrets 中 <code>SSH_PRIVATE_KEY</code> 变量内即可。</p>
+<h2 id="2-将萌萌哒看板娘抱回家"><a href="#2-将萌萌哒看板娘抱回家" class="headerlink" title="2. 将萌萌哒看板娘抱回家"></a>2. 将萌萌哒看板娘抱回家</h2><p>看板娘的大致设置都可以参考 <a target="_blank" rel="noopener" href="https://github.com/stevenjoezhang/live2d-widget">stevenjoezhang/live2d-widget</a> 这个项目的介绍。这里我主要记录一下使用上述组件时候，需要调用到的看板娘模型 API 的自建过程。</p>
+<p>首先，在宝塔面板创建新站点，设置好 PHP 版本（不能是纯静态），并添加上 SSL 证书。然后，删去网站根目录 <code>/www/wwwroot/api/</code> 下默认添加创建的所有文件，确保文件夹全部清空。打开 SSH 终端，把 Live2D API 源代码拉取到网站 <code>live2d/</code> 目录：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /www/wwwroot/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/fghrsh/live2d_api.git api/live2d</span><br></pre></td></tr></table></figure>
+<p>然后在网站的配置文件中添加代码设置跨域访问：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> $allow_origin always;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span>;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">&#x27;GET,POST,OPTIONS&#x27;</span>;</span><br><span class="line">    <span class="attribute">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">&#x27;Token,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,X_Requested_With,If-Modified-Since,Cache-Control,Content-Type&#x27;</span>;</span><br><span class="line">    <span class="attribute">if</span> ($request_method = <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">        <span class="attribute">return</span> <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">map</span> $http_origin $allow_origin &#123;</span><br><span class="line">    <span class="attribute">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &quot;~^(https?://localhost(:[0-9]+)?)&quot; $1;</span><br><span class="line">    &quot;~^(https?://127.0.0.1(:[0-9]+)?)&quot; $1; </span><br><span class="line">    &quot;~^(https?://192.168.10.[\d]+(:[0-9]+)?)&quot; $1;</span><br><span class="line">    &quot;~^(https?://local.zdl.one(:[0-9]+)?)&quot; $1;</span><br><span class="line">    &quot;~^https://dlzhang.com&quot; https://dlzhang.com;</span><br><span class="line">    &quot;~^https://blog.dlzhang.com&quot; https://blog.dlzhang.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为我的看板娘组件文件都放在了腾讯云的对象存储中并通过其 CDN 进行访问，所以还需要在腾讯云的内容分发网络中对加速域名也设置好允许相关域名跨域访问的权限。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+<span style="margin-top:30px; color:var(--blockquote-color); font-size:0.85em">
+        <br>
+        <span class="post-end-item" title="copyright"">
+            <span class="post-end-item-icon" style="margin-right: 3px">
+                <i class="fab fa-fw fa-creative-commons"></i>
+            </span>
+            <span class="post-end-item-text">采用署名-非商业性使用-相同方式共享 4.0（CC BY-NC-SA 4.0）许可协议</span>
+        </span>
+</span>
+
+
+
+
+
+<div class="donations">
+    <div class="donation-label">您喜欢这篇文章？可以考虑赞赏一下作者呢？</div>
+    <a class="afdian-button" href="https://afdian.net/@app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fas fa-fw fa-bolt"></i>爱发电
+    </a>
+    <a class="paypal-button" href="https://paypal.me/app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fab fa-fw fa-paypal"></i>Paypal
+    </a>
+</div>
+          <div class="post-tags">
+              <a href="/overview/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/overview/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+              <a href="/overview/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" rel="tag"><i class="fa fa-tag"></i> 持续集成</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/46/" rel="prev" title="升级到 Debian 10 并安装宝塔面板">
+                  <i class="fa fa-chevron-left"></i> 升级到 Debian 10 并安装宝塔面板
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/48/" rel="next" title="部署 RSS 订阅服务 FreshRSS">
+                  部署 RSS 订阅服务 FreshRSS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LEE.</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+    <div class="pjax">
+
+  
+
+<script>
+NexT.utils.loadComments('#waline-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js', () => {
+    new Waline(Object.assign({
+      lang: 'zh-CN'
+    }, {"enable":true,"serverURL":"https://app318.vercel.app","placeholder":"填写昵称、邮箱即可留下你的观点与想法，邮件通知新回复。","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick","mail"],"avatarCDN":"https://sdn.geekzu.org/avatar/","lang":"zh-CN","langMode":{"admin":"可爱的博主","nick":"昵称（必填）","mail":"邮箱（必填）","link":"网址（http:// 选填）"}}, {
+      el: '#waline-comments',
+      path: "/posts/47/",
+    }));
+  }, window.Waline);
+});
+</script>
+
+
+
+<script type="text/javascript">
+if(window.location.hash){
+    var checkExist = setInterval(function() {
+        if ($(window.location.hash).length) {
+            $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+            clearInterval(checkExist);
+        }
+    }, 100);
+}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+/* @license Minigrid v3.1.1 – https://cdn.jsdelivr.net/npm/minigrid@3.1.1/dist/minigrid.min.js */
+!function(t, e) {
+	"function" == typeof define && define.amd ? define(e) : "object" == typeof exports ? module.exports = e() : t.Minigrid = e()
+}(this, function(t) {
+	"use strict";
+	function e(t, e) {
+		for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+		return t
+	}
+	var i = function(t) {
+			var i = t.container instanceof Node ? t.container : document.querySelector(t.container),
+				r = t.item instanceof NodeList ? t.item : i.querySelectorAll(t.item);
+			this.props = e(t, {
+				container: i,
+				nodeList: r
+			})
+		};
+	return i.prototype.mount = function() {
+		if (!this.props.container) return !1;
+		if (!this.props.nodeList || 0 === this.props.nodeList.length) return !1;
+		var t = "number" == typeof this.props.gutter && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter ? this.props.gutter : 0,
+			e = this.props.done,
+			i = this.props.container,
+			r = this.props.nodeList;
+		i.style.width = "";
+		var n = Array.prototype.forEach,
+			o = i.getBoundingClientRect().width,
+			s = r[0].getBoundingClientRect().width + t,
+			p = Math.max(Math.floor((o - t) / s), 1),
+			a = 0;
+		o = s * p + t + "px", i.style.width = o, i.style.position = "relative";
+		for (var c = [], u = [], l = 0; l < p; ++l) u.push(l * s + t), c.push(t);
+		this.props.rtl && u.reverse(), n.call(r, function(e) {
+			var i = c.slice(0).sort(function(t, e) {
+				return t - e
+			}).shift();
+			i = c.indexOf(i);
+			var r = parseInt(u[i]),
+				n = parseInt(c[i]);
+			e.style.position = "absolute", e.style.webkitBackfaceVisibility = e.style.backfaceVisibility = "hidden", e.style.transformStyle = "preserve-3d", e.style.transform = "translate3D(" + r + "px," + n + "px, 0)", c[i] += e.getBoundingClientRect().height + t, a += 1
+		}), i.style.display = "";
+		var f = c.slice(0).sort(function(t, e) {
+			return t - e
+		}).pop();
+		i.style.height = f + "px", "function" == typeof e && e(r)
+	}, i
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+<!-- weather -->
+<script type="text/javascript">
+WIDGET = {FID: 'R9msQQ9qtu'}
+</script>
+<script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+
+<script type="text/javascript" src="/js/hexo_resize_image.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

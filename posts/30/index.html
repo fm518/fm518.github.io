@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#6c599f">
+<meta name="generator" content="Hexo 5.3.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-16x16.png">
+  <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/safari-pinned-tab.svg" color="#6c599f">
+  <meta name="google-site-verification" content="SJUudYL5q_atXSgew2qwy69FXOnSnNB2rAmwHmcBT9U">
+  <meta name="baidu-site-verification" content="wvc37nzEad">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Sans:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"0272020.xyz","root":"/","images":"https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="最近把 个人主页 与 博客 都重新设计了，所以就打算写个总结，自己记录一下一些细节。虽然自认为不会有几个访客，但还是进行了相应的区别定位。个人主页主要是展现个人的简历、研究项目等内容，主要是个人展示目的；博客偏向于个性化一些，主要想进行一些生活日常或者研究过程等记录，也可以展现一些自己的兴趣爱好之类的东西。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人主页与 Hexo NexT 博客搭建记录">
+<meta property="og:url" content="https://0272020.xyz/posts/30/">
+<meta property="og:site_name" content="LEE.">
+<meta property="og:description" content="最近把 个人主页 与 博客 都重新设计了，所以就打算写个总结，自己记录一下一些细节。虽然自认为不会有几个访客，但还是进行了相应的区别定位。个人主页主要是展现个人的简历、研究项目等内容，主要是个人展示目的；博客偏向于个性化一些，主要想进行一些生活日常或者研究过程等记录，也可以展现一些自己的兴趣爱好之类的东西。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/30/dns.png!600x">
+<meta property="article:published_time" content="2018-06-06T10:03:02.000Z">
+<meta property="article:modified_time" content="2021-03-11T00:25:46.477Z">
+<meta property="article:author" content="LEE.">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://website-1256060851.file.myqcloud.com/posts/30/dns.png!600x">
+
+
+<link rel="canonical" href="https://0272020.xyz/posts/30/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<link rel="preconnect" href="https://anlu-1253254122.file.myqcloud.com" crossorigin>
+<link rel="preconnect" href="https://sdn.geekzu.org" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xiangsudian/CaoMei/style.min.css">
+
+<title>个人主页与 Hexo NexT 博客搭建记录 | LEE.</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141207776-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141207776-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LEE." type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">LEE.</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">分享 & 记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fas fa-home fa-fw"></i>本站首页</a></li>
+        
+            
+  <li class="menu-item menu-item-overview"><a href="/overview/" rel="section"><i class="fas fa-archive fa-fw"></i>文章总览</a></li>
+
+
+      
+        <li class="menu-item menu-item-photos"><a href="/photos/" rel="section"><i class="fas fa-camera-retro fa-fw"></i>光影留痕</a></li>
+        <li class="menu-item menu-item-more"><a href="/more/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>关于更多</a></li>
+        <li class="menu-item menu-item-friends"><a href="/friends/" rel="section"><i class="fas fa-heart fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%9F%E5%90%8D%E4%B8%8E%E8%A7%A3%E6%9E%90"><span class="nav-text">1. 域名与解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Hexo-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">2. Hexo 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-text">2.1 环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%96%B0%E5%BB%BA%E6%96%87%E7%AB%A0%E4%B8%8E%E9%A1%B5%E9%9D%A2"><span class="nav-text">2.2 新建文章与页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E8%B0%83%E8%AF%95%E4%B8%8E%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99"><span class="nav-text">2.3 本地预览调试与部署网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E5%91%BD%E4%BB%A4%E5%90%8E%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-text">2.4 添加文章命令后自动打开编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-text">3. 博客主题自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98"><span class="nav-text">3.1 修改主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE"><span class="nav-text">3.2 站点地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E4%B8%8E%E4%B8%BB%E9%A2%98%E6%A0%B7%E5%BC%8F%E4%B8%80%E8%87%B4%E7%9A%84404%E9%A1%B5%E9%9D%A2"><span class="nav-text">3.3 与主题样式一致的404页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E4%BF%AE%E6%94%B9%E6%96%87%E7%AB%A0%E6%B0%B8%E4%B9%85%E6%80%A7%E9%93%BE%E6%8E%A5"><span class="nav-text">3.4 修改文章永久性链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6"><span class="nav-text">3.5 文章置顶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E8%B1%86%E7%93%A3%E8%AF%BB%E4%B9%A6%E7%94%B5%E5%BD%B1%E6%B8%B8%E6%88%8F%E5%B1%95%E7%A4%BA"><span class="nav-text">3.6 豆瓣读书电影游戏展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-Travis-CI-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90"><span class="nav-text">3.7 Travis CI 持续集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E7%9B%B8%E5%86%8C"><span class="nav-text">3.8 相册</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LEE."
+      src="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+  <p class="site-author-name" itemprop="name">LEE.</p>
+  <div class="site-description" itemprop="description">阅读/互联网/听歌/纪录片/电影</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/overview/timeline">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/overview/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/overview/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/1465528845" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;1465528845" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/626127114" title="哔哩哔哩 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;626127114" rel="noopener" target="_blank"><i class="czs-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/fm518" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fm518" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0272020.xyz/posts/30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+      <meta itemprop="name" content="LEE.">
+      <meta itemprop="description" content="阅读/互联网/听歌/纪录片/电影">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LEE.">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          个人主页与 Hexo NexT 博客搭建记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发布：</span>
+
+      <time title="创建时间：2018-06-06 18:03:02" itemprop="dateCreated datePublished" datetime="2018-06-06T18:03:02+08:00">2018-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类：</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/overview/%E7%A7%91%E6%8A%80%E6%A0%91/" itemprop="url" rel="index"><span itemprop="name">科技树</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">评论：</span>
+  
+    <a title="waline" href="/posts/30/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/30/" data-xid="/posts/30/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/posts/30/" class="post-meta-item leancloud_visitors" data-flag-title="个人主页与 Hexo NexT 博客搭建记录" title="阅读">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近把 <a target="_blank" rel="noopener" href="https://dlzhang.com/">个人主页</a> 与 <a href="/">博客</a> 都重新设计了，所以就打算写个总结，自己记录一下一些细节。虽然自认为不会有几个访客，但还是进行了相应的区别定位。个人主页主要是展现个人的简历、研究项目等内容，主要是个人展示目的；博客偏向于个性化一些，主要想进行一些生活日常或者研究过程等记录，也可以展现一些自己的兴趣爱好之类的东西。<a id="more"></a></p>
+<h2 id="1-域名与解析"><a href="#1-域名与解析" class="headerlink" title="1. 域名与解析"></a>1. 域名与解析</h2><p>购买到合适的域名之后，就需要把网站通过 DNS 解析到对应的域名上，我的网站 DNS 解析由 Cloudflare 提供。目前的个人主页与博客都放在 <a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a> 上，由 Netlify 获取 GitHub 对应的项目仓库内容自动进行网站页面生成与部署。所以直接在 Netlify 对应的项目中添加好域名，再根据提示去设置解析。</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/30/dns.png!600x" alt="Cloudflare DNS 设置"></p>
+<p>上图中主机记录 <code>Name</code> 就是我们希望网站访问时的域名，如果我们的域名是 <code>example.com</code>，那么设置好主机记录后我们的访问域名也即 <code>主机记录.example.com</code>。当主机记录为 <code>@</code> 时，对应就是直接访问我们的根域名。记录值 <code>Value</code> 填写的是 Netlify 上对应项目的二级域名地址。</p>
+<p>设置好 DNS 解析后，还需要在域名注册商处把域名指向 Cloudflare 提供的两个 NameServer 解析服务器才可以正常访问。</p>
+<p>采用 HTTPS 可以使得浏览数据更加安全，并防止网络运营商对网页进行劫持和插入广告。Netlify 提供由 Let’s Encrypt 颁发的免费证书来开启强制 HTTPS，直接在管理界面就可以点击开启。对于部署在 GitHub Pages上的情况，只需要在 repository 的页面点击 Settings，在 <code>GitHub Pages</code> 下面把 <code>Enforce HTTPS</code> 打勾即可。</p>
+<h2 id="2-Hexo-初始化"><a href="#2-Hexo-初始化" class="headerlink" title="2. Hexo 初始化"></a>2. Hexo 初始化</h2><h3 id="2-1-环境配置"><a href="#2-1-环境配置" class="headerlink" title="2.1 环境配置"></a>2.1 环境配置</h3><div class="note info"><p><strong>提示</strong>：macOS 在编译时候可能会提示没有缺少 Command Line Tools，需要在终端输入 <code>xcode-select --install</code>，然后根据提示安装。</p>
+</div>
+
+<p>要使用 Hexo NexT 主题的博客，需要先配置好环境，安装 <a target="_blank" rel="noopener" href="http://nodejs.org/">Node.js</a> 和 <a target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git</a>。安装完成后，在终端中输入以下命令安装 Hexo：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yarn global add hexo-cli <span class="comment">#需要输入密码确认，或者 npm install -g hexo-cli</span></span><br></pre></td></tr></table></figure>
+<p>安装 Hexo 完成后，执行下列命令会在指定文件夹中新建所需要的文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder-path&gt;  <span class="comment">#在指定文件夹中初始化 Hexo</span></span><br><span class="line"><span class="built_in">cd</span> &lt;folder-path&gt;  <span class="comment">#定位到 Hexo 博客目录</span></span><br><span class="line">yarn install <span class="comment">#或者 npm install</span></span><br></pre></td></tr></table></figure>
+<p>新建完成后，指定文件夹的目录中：</p>
+<ul>
+<li><code>_config.yml</code> 站点配置文件，具体配置的说明可以查看相关 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration.html">文档</a>。</li>
+<li><code>themes</code> 主题文件夹，Hexo 会根据主题来生成静态页面。</li>
+<li><code>source</code> 文件夹是存放用户资源的地方，Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被复制过去（如 <code>CNAME</code> 文件）。</li>
+</ul>
+<h3 id="2-2-新建文章与页面"><a href="#2-2-新建文章与页面" class="headerlink" title="2.2 新建文章与页面"></a>2.2 新建文章与页面</h3><p>使用以下第一句可以在 <code>source/_post/</code> 文件夹下新建一篇文章；使用以下的第二句可以在 <code>source</code> 下新建以 <code>&lt;page-title&gt;</code> 为名称的文件夹，文件夹内的 <code>index.md</code> 可以在编译后生成一个新的页面。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;&lt;post-title&gt;&quot;</span>  <span class="comment">#新建文章</span></span><br><span class="line">hexo new page <span class="string">&quot;&lt;page-title&gt;&quot;</span>  <span class="comment">#新建页面</span></span><br></pre></td></tr></table></figure>
+<p>因为原始的都是 Markdown 文件，要让浏览器可以显示美观的网页，需要根据 Markdown 文件生成 HTML 静态文件。执行以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成静态文件</span></span><br><span class="line">hexo generate  <span class="comment">#或者 hexo g</span></span><br></pre></td></tr></table></figure>
+<p>在某些情况，如果发现对站点的更改无论如何也不生效，可能需要运行该命令，清除缓存文件 <code>db.json</code> 和已生成的静态文件 <code>/public/</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-本地预览调试与部署网站"><a href="#2-3-本地预览调试与部署网站" class="headerlink" title="2.3 本地预览调试与部署网站"></a>2.3 本地预览调试与部署网站</h3><p>要在本地预览调试生成的博客网页效果，可以执行以下命令。访问网址为：<code>http://localhost:4000/</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
+<p>如果是部署在 GitHub Pages，可以按照下述命令配置站点配置文件（注意缩进保持一致）：</p>
+<figure class="highlight yaml"><figcaption><span>/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">https://github.com/&lt;github-username&gt;/&lt;github-repo-name&gt;.git</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">&lt;github-repo-branch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>设置完成后，执行以下命令。第一次执行过程中会提示输入相应用户名和密码，正确输入后既可以正常部署。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首次部署要先执行以下命令安装插件</span></span><br><span class="line">yarn add hexo-deployer-git <span class="comment">#或者 npm i hexo-deployer-git --save</span></span><br><span class="line"><span class="comment">#部署网站</span></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>在两条命令直接采用 <code>&amp;&amp;</code> 进行连接即可同时执行两条命令。另外，使用以下的命令可以简化命令的使用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo s -g  <span class="comment">#启动服务器之前预先生成静态文件，等价于 hexo g &amp;&amp; hexo s</span></span><br><span class="line">hexo g -d  <span class="comment">#静态文件生成后立即部署网站，等价于 hexo g &amp;&amp; hexo d</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-添加文章命令后自动打开编辑器"><a href="#2-4-添加文章命令后自动打开编辑器" class="headerlink" title="2.4 添加文章命令后自动打开编辑器"></a>2.4 添加文章命令后自动打开编辑器</h3><p>参考：<a target="_blank" rel="noopener" href="https://notes.wanghao.work/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html">Hexo添加文章时自动打开编辑器 - Doublemine</a></p>
+<p>在<strong>站点</strong>文件夹根目录新建文件夹 <code>scripts</code>，然后在文件夹内新建文件 <code>openeditor.js</code>：</p>
+<figure class="highlight javascript"><figcaption><span>/scripts/openeditor.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Windows</span></span><br><span class="line"><span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).exec;</span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">truespawn(<span class="string">&#x27;start  &quot;markdown编辑器绝对路径.exe&quot; &#x27;</span> + data.path);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//macOS</span></span><br><span class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).exec;</span><br><span class="line">hexo.on(<span class="string">&#x27;new&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">trueexec(<span class="string">&#x27;open -a &quot;markdown编辑器绝对路径.app&quot; &#x27;</span> + data.path);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="3-博客主题自定义"><a href="#3-博客主题自定义" class="headerlink" title="3. 博客主题自定义"></a>3. 博客主题自定义</h2><h3 id="3-1-修改主题"><a href="#3-1-修改主题" class="headerlink" title="3.1 修改主题"></a>3.1 修改主题</h3><p>可以执行以下命令下载主题文件，当然也可以从 GitHub <a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next/releases">直接下载</a> 最新版本压缩包，解压后将文件放在 <code>/themes/next</code> 目录下面。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;blog-path&gt;  <span class="comment">#定位到 Hexo 博客目录</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next /themes/next</span><br></pre></td></tr></table></figure>
+<p>另一种是通过添加子模块的方法载入主题文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>下载主题文件后，打开博客根目录下的站点配置文件（<code>/_config.yml</code>），找到 <code>theme</code> 键值，将值修改为 <code>next</code> 即可。</p>
+<div class="note warning"><p><strong>注意</strong>：图片图标文件可以放到 <code>/themes/next/source/images/</code>（默认图标放在这里）或者 <code>/source/</code> 目录下。如果图标文件放至在 <code>/themes/next/source/images/</code> 目录下，务必注意不要和目录下的默认图标文件名一样，否则在生成静态文件的时候会被默认文件会覆盖。</p>
+</div>
+
+<h3 id="3-2-站点地图"><a href="#3-2-站点地图" class="headerlink" title="3.2 站点地图"></a>3.2 站点地图</h3><p>要自动生成站点地图，可以执行以下命令，这样以后每次执行 <code>hexo g</code>，都会生成 <code>sitemap.xml</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;blog-path&gt;</span><br><span class="line">yarn add hexo-generator-sitemap <span class="comment">#或者 npm i hexo-generator-sitemap --save</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-与主题样式一致的404页面"><a href="#3-3-与主题样式一致的404页面" class="headerlink" title="3.3 与主题样式一致的404页面"></a>3.3 与主题样式一致的404页面</h3><p>要生成一个和主题样式一致的404页面，首先需要新建一个页面：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;blog-path&gt;</span><br><span class="line">hexo new page <span class="string">&quot;404&quot;</span></span><br></pre></td></tr></table></figure>
+<p>编辑该页面的 Markdown 文件为以下内容，正文部分可以自行编辑内容。其中 <code>permalink: /404</code> 表示将该文件解析生成的 HTML 文件永久链接设置为 <code>/404</code>，这样就可以让访客访问错误链接时看到这个页面了。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 404 Not Found</span><br><span class="line">comments: false</span><br><span class="line">permalink: /404</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-修改文章永久性链接"><a href="#3-4-修改文章永久性链接" class="headerlink" title="3.4 修改文章永久性链接"></a>3.4 修改文章永久性链接</h3><p>这里使用插件 <code>hexo-abbrlink</code> 来生成博客文章的永久链接，可以查看该插件的 <a target="_blank" rel="noopener" href="https://github.com/Rozbo/hexo-abbrlink">GitHub 项目页面</a>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;blog-path&gt;</span><br><span class="line">yarn add hexo-abbrlink <span class="comment">#或者 npm i hexo-abbrlink --save</span></span><br></pre></td></tr></table></figure>
+<p>在站点配置文件中修改 <code>permalink</code>：</p>
+<figure class="highlight diff"><figcaption><span>/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-permalink: :year/:month/:day/:title/</span></span><br><span class="line"><span class="addition">+permalink: posts/:abbrlink/</span></span><br><span class="line"><span class="addition">+abbrlink:</span></span><br><span class="line"><span class="addition">+  alg: crc32  #support crc16(default) and crc32</span></span><br><span class="line"><span class="addition">+  rep: hex    #support dec(default) and hex</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-文章置顶"><a href="#3-5-文章置顶" class="headerlink" title="3.5 文章置顶"></a>3.5 文章置顶</h3><p>首先替换给文章排序索引的原有插件 <code>hexo-generator-index</code>，执行以下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yarn remove hexo-generator-index &amp;&amp; yarn add hexo-generator-indexed</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者以下命令</span></span><br><span class="line">npm uni hexo-generator-index --save &amp;&amp; npm i hexo-generator-indexed --save</span><br></pre></td></tr></table></figure>
+<p>然后在需要置顶的文章的开头添加 <code>sticky</code> 控制文章置顶：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">---</span></span><br><span class="line"><span class="addition">+sticky: true</span></span><br><span class="line"><span class="comment">---</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-6-豆瓣读书电影游戏展示"><a href="#3-6-豆瓣读书电影游戏展示" class="headerlink" title="3.6 豆瓣读书电影游戏展示"></a>3.6 豆瓣读书电影游戏展示</h3><p>如果想在博客中展示自己在豆瓣上的读书、电影、游戏等的信息，可以安装插件 <a target="_blank" rel="noopener" href="https://github.com/mythsman/hexo-douban"><code>hexo-douban</code></a>。而要增加知乎、豆瓣图标支持，请阅读《 <a href="/posts/89dad1c1/">Hexo NexT 博客增加知乎豆瓣图标支持</a>》。</p>
+<p>但是，该插件在 Safari 浏览器下无法显示豆瓣读书中书籍封面图片。需要做的修改就是让页面自动判断是不是豆瓣读书页面，如果是就加载一句 meta 信息，否则就不加载。所以，把以下这段代码加入到 <code>/source/_data/head.swig</code> 之中：</p>
+<figure class="highlight javascript"><figcaption><span>/source/_data/head.swig</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">GetUrlRelativePath</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> url = <span class="built_in">document</span>.location.toString(); <span class="comment">//获取当前链接</span></span><br><span class="line">    <span class="keyword">var</span> arrUrl = url.split(<span class="string">&quot;//&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> start = arrUrl[<span class="number">1</span>].indexOf(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> relUrl = arrUrl[<span class="number">1</span>].substring(start); <span class="comment">//截取从start开始到结尾的所有字符</span></span><br><span class="line">    <span class="keyword">if</span>(relUrl.indexOf(<span class="string">&quot;?&quot;</span>) != -<span class="number">1</span>)&#123;</span><br><span class="line">      relUrl = relUrl.split(<span class="string">&quot;?&quot;</span>)[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="keyword">return</span> relUrl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> relUrl = GetUrlRelativePath()</span><br><span class="line">  <span class="keyword">if</span> (relUrl.indexOf(<span class="string">&#x27;/books/&#x27;</span>)&gt;=<span class="number">0</span>) &#123;  <span class="comment">//判断是否为豆瓣读书页面</span></span><br><span class="line">    <span class="built_in">document</span>.write(<span class="string">&#x27;&lt;meta name=&quot;referrer&quot; content=&quot;never&quot; /&gt;&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>因为这里利用到了主题注入功能，所以需要在<strong>主题配置文件</strong>启用该功能：</p>
+<figure class="highlight diff"><figcaption><span>/themes/next/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> custom_file_path:</span><br><span class="line"><span class="deletion">-  #head: source/_data/head.swig</span></span><br><span class="line"><span class="addition">+  head: source/_data/head.swig</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-7-Travis-CI-持续集成"><a href="#3-7-Travis-CI-持续集成" class="headerlink" title="3.7 Travis CI 持续集成"></a>3.7 Travis CI 持续集成</h3><p>具体方法可以查看 <a target="_blank" rel="noopener" href="https://juejin.im/post/5a1fa30c6fb9a045263b5d2a">Hexo遇上Travis-CI：可能是最通俗易懂的自动发布博客图文教程</a>。需要提醒的是目前 Travis CI 已经计划逐渐把 <a target="_blank" rel="noopener" href="https://travis-ci.org/">travis-ci.org</a> 的项目迁移到 <a target="_blank" rel="noopener" href="https://travis-ci.com/">travis-ci.com</a> ，所以只需要用后者即可。这样就可以让 Travis CI 监视 GitHub 上博客源文件分支的变动，自动生成博客静态网页文件并部署到 GitHub Pages。</p>
+<h3 id="3-8-相册"><a href="#3-8-相册" class="headerlink" title="3.8 相册"></a>3.8 相册</h3><p>关于创建瀑布流的相册，请查看《<a href="/posts/31/">Hexo NexT 博客增加瀑布流相册页面</a>》。</p>
+<p>文章图片的存储如果放至在博客项目下，会极大地增加项目的空间。所以可以将图片上传到图床，然后在需要图片的地方引用该图片外部链接即可。我现在选择了腾讯云的 COS 对象存储，提供每个月 10GB 的免费外网下行流量，以及每个月 50GB 的免费存储空间。</p>
+<p>另外介绍一个 macOS 上十分实用的批量打水印免费软件 <a target="_blank" rel="noopener" href="http://www.xnview.com/en/xnconvert/">XnConvert</a>，可以查阅这一份 <a target="_blank" rel="noopener" href="https://ningselect.com/2017/02/25/%E6%94%9D%E5%BD%B1%E5%B0%8F%E6%95%99%E5%AE%A4-%E8%B6%85%E7%B0%A1%E5%96%AE%EF%BC%81%E4%B8%80%E6%8B%9B%E5%B9%AB%E6%89%80/">使用说明</a>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+<span style="margin-top:30px; color:var(--blockquote-color); font-size:0.85em">
+        <br>
+        <span class="post-end-item" title="copyright"">
+            <span class="post-end-item-icon" style="margin-right: 3px">
+                <i class="fab fa-fw fa-creative-commons"></i>
+            </span>
+            <span class="post-end-item-text">采用署名-非商业性使用-相同方式共享 4.0（CC BY-NC-SA 4.0）许可协议</span>
+        </span>
+</span>
+
+
+
+
+
+<div class="donations">
+    <div class="donation-label">您喜欢这篇文章？可以考虑赞赏一下作者呢？</div>
+    <a class="afdian-button" href="https://afdian.net/@app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fas fa-fw fa-bolt"></i>爱发电
+    </a>
+    <a class="paypal-button" href="https://paypal.me/app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fab fa-fw fa-paypal"></i>Paypal
+    </a>
+</div>
+          <div class="post-tags">
+              <a href="/overview/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/29/" rel="prev" title="[知乎 Live] 香港研究生申请：商科与经济学">
+                  <i class="fa fa-chevron-left"></i> [知乎 Live] 香港研究生申请：商科与经济学
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/31/" rel="next" title="Hexo NexT 博客增加瀑布流相册页面">
+                  Hexo NexT 博客增加瀑布流相册页面 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LEE.</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+    <div class="pjax">
+
+  
+
+<script>
+NexT.utils.loadComments('#waline-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js', () => {
+    new Waline(Object.assign({
+      lang: 'zh-CN'
+    }, {"enable":true,"serverURL":"https://app318.vercel.app","placeholder":"填写昵称、邮箱即可留下你的观点与想法，邮件通知新回复。","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick","mail"],"avatarCDN":"https://sdn.geekzu.org/avatar/","lang":"zh-CN","langMode":{"admin":"可爱的博主","nick":"昵称（必填）","mail":"邮箱（必填）","link":"网址（http:// 选填）"}}, {
+      el: '#waline-comments',
+      path: "/posts/30/",
+    }));
+  }, window.Waline);
+});
+</script>
+
+
+
+<script type="text/javascript">
+if(window.location.hash){
+    var checkExist = setInterval(function() {
+        if ($(window.location.hash).length) {
+            $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+            clearInterval(checkExist);
+        }
+    }, 100);
+}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+/* @license Minigrid v3.1.1 – https://cdn.jsdelivr.net/npm/minigrid@3.1.1/dist/minigrid.min.js */
+!function(t, e) {
+	"function" == typeof define && define.amd ? define(e) : "object" == typeof exports ? module.exports = e() : t.Minigrid = e()
+}(this, function(t) {
+	"use strict";
+	function e(t, e) {
+		for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+		return t
+	}
+	var i = function(t) {
+			var i = t.container instanceof Node ? t.container : document.querySelector(t.container),
+				r = t.item instanceof NodeList ? t.item : i.querySelectorAll(t.item);
+			this.props = e(t, {
+				container: i,
+				nodeList: r
+			})
+		};
+	return i.prototype.mount = function() {
+		if (!this.props.container) return !1;
+		if (!this.props.nodeList || 0 === this.props.nodeList.length) return !1;
+		var t = "number" == typeof this.props.gutter && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter ? this.props.gutter : 0,
+			e = this.props.done,
+			i = this.props.container,
+			r = this.props.nodeList;
+		i.style.width = "";
+		var n = Array.prototype.forEach,
+			o = i.getBoundingClientRect().width,
+			s = r[0].getBoundingClientRect().width + t,
+			p = Math.max(Math.floor((o - t) / s), 1),
+			a = 0;
+		o = s * p + t + "px", i.style.width = o, i.style.position = "relative";
+		for (var c = [], u = [], l = 0; l < p; ++l) u.push(l * s + t), c.push(t);
+		this.props.rtl && u.reverse(), n.call(r, function(e) {
+			var i = c.slice(0).sort(function(t, e) {
+				return t - e
+			}).shift();
+			i = c.indexOf(i);
+			var r = parseInt(u[i]),
+				n = parseInt(c[i]);
+			e.style.position = "absolute", e.style.webkitBackfaceVisibility = e.style.backfaceVisibility = "hidden", e.style.transformStyle = "preserve-3d", e.style.transform = "translate3D(" + r + "px," + n + "px, 0)", c[i] += e.getBoundingClientRect().height + t, a += 1
+		}), i.style.display = "";
+		var f = c.slice(0).sort(function(t, e) {
+			return t - e
+		}).pop();
+		i.style.height = f + "px", "function" == typeof e && e(r)
+	}, i
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+<!-- weather -->
+<script type="text/javascript">
+WIDGET = {FID: 'R9msQQ9qtu'}
+</script>
+<script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+
+<script type="text/javascript" src="/js/hexo_resize_image.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

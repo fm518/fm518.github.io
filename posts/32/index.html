@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#6c599f">
+<meta name="generator" content="Hexo 5.3.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-16x16.png">
+  <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/safari-pinned-tab.svg" color="#6c599f">
+  <meta name="google-site-verification" content="SJUudYL5q_atXSgew2qwy69FXOnSnNB2rAmwHmcBT9U">
+  <meta name="baidu-site-verification" content="wvc37nzEad">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Sans:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"0272020.xyz","root":"/","images":"https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="因为 Hexo NexT 原始主题是采用了 Font Awesome 图标，并未包含如知乎、豆瓣这类中国大陆的社交网站图标。所以需要加入另一种图标的支持，使得博客可以显示出知乎、豆瓣这类的图标。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo NexT 博客增加知乎豆瓣图标支持">
+<meta property="og:url" content="https://0272020.xyz/posts/32/">
+<meta property="og:site_name" content="LEE.">
+<meta property="og:description" content="因为 Hexo NexT 原始主题是采用了 Font Awesome 图标，并未包含如知乎、豆瓣这类中国大陆的社交网站图标。所以需要加入另一种图标的支持，使得博客可以显示出知乎、豆瓣这类的图标。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/32/douban-zhihu.jpg!600x">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/32/iconfont.png!500x">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/32/download.png!300x">
+<meta property="article:published_time" content="2018-06-12T20:21:54.000Z">
+<meta property="article:modified_time" content="2021-03-11T00:25:46.477Z">
+<meta property="article:author" content="LEE.">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://website-1256060851.file.myqcloud.com/posts/32/douban-zhihu.jpg!600x">
+
+
+<link rel="canonical" href="https://0272020.xyz/posts/32/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<link rel="preconnect" href="https://anlu-1253254122.file.myqcloud.com" crossorigin>
+<link rel="preconnect" href="https://sdn.geekzu.org" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xiangsudian/CaoMei/style.min.css">
+
+<title>Hexo NexT 博客增加知乎豆瓣图标支持 | LEE.</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141207776-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141207776-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LEE." type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">LEE.</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">分享 & 记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fas fa-home fa-fw"></i>本站首页</a></li>
+        
+            
+  <li class="menu-item menu-item-overview"><a href="/overview/" rel="section"><i class="fas fa-archive fa-fw"></i>文章总览</a></li>
+
+
+      
+        <li class="menu-item menu-item-photos"><a href="/photos/" rel="section"><i class="fas fa-camera-retro fa-fw"></i>光影留痕</a></li>
+        <li class="menu-item menu-item-more"><a href="/more/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>关于更多</a></li>
+        <li class="menu-item menu-item-friends"><a href="/friends/" rel="section"><i class="fas fa-heart fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%9B%BE%E6%A0%87"><span class="nav-text">1. 下载图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="nav-text">2. 自定义样式配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">3. 图标的应用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LEE."
+      src="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+  <p class="site-author-name" itemprop="name">LEE.</p>
+  <div class="site-description" itemprop="description">阅读/互联网/听歌/纪录片/电影</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/overview/timeline">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/overview/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/overview/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/1465528845" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;1465528845" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/626127114" title="哔哩哔哩 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;626127114" rel="noopener" target="_blank"><i class="czs-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/fm518" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fm518" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0272020.xyz/posts/32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+      <meta itemprop="name" content="LEE.">
+      <meta itemprop="description" content="阅读/互联网/听歌/纪录片/电影">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LEE.">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo NexT 博客增加知乎豆瓣图标支持
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发布：</span>
+
+      <time title="创建时间：2018-06-13 04:21:54" itemprop="dateCreated datePublished" datetime="2018-06-13T04:21:54+08:00">2018-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类：</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/overview/%E7%A7%91%E6%8A%80%E6%A0%91/" itemprop="url" rel="index"><span itemprop="name">科技树</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">评论：</span>
+  
+    <a title="waline" href="/posts/32/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/32/" data-xid="/posts/32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/posts/32/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo NexT 博客增加知乎豆瓣图标支持" title="阅读">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://website-1256060851.file.myqcloud.com/posts/32/douban-zhihu.jpg!600x"></p>
+<p>因为 Hexo NexT 原始主题是采用了 Font Awesome 图标，并未包含如知乎、豆瓣这类中国大陆的社交网站图标。所以需要加入另一种图标的支持，使得博客可以显示出知乎、豆瓣这类的图标。<a id="more"></a></p>
+<ul>
+<li>感谢评论区 jqgsninimo 提供的改进，方法更佳简单明了，本文已经更新该方法。 </li>
+<li>CSS 自定义文件指 <code>/source/_data/styles.styl</code></li>
+<li>本文适用于 Hexo 4.2.0 / NexT 7.7.1</li>
+</ul>
+<div class="note info"><p><strong>更新</strong>：NexT 8.1.0 版本下可以直接选择 <a target="_blank" rel="noopener" href="https://github.com/xiangsudian/CaoMei">草莓图标库</a> 方案或者参考主题文档关于 <a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/advanced-settings/custom-files.html#Custom-Icon-Image">Custom Icon Image</a> 设置的说明。</p>
+</div>
+
+<h2 id="1-下载图标"><a href="#1-下载图标" class="headerlink" title="1. 下载图标"></a>1. 下载图标</h2><p>首先，前往 <a target="_blank" rel="noopener" href="http://www.iconfont.cn/">阿里巴巴矢量库</a> 挑选需要的图标，在图标上点击 <i class="fas fa-shopping-cart"></i> 加入购物车。</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/32/iconfont.png!500x" alt="阿里巴巴矢量库"></p>
+<p>然后，点击页面右上方 <i class="fas fa-shopping-cart"></i> 进入购物车，选择「下载代码」。</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/32/download.png!300x" alt="购物车下载代码"></p>
+<p>将下载的文件解压后，找到 <code>iconfont.css</code> 文件，打开后将其中的所有内容都复制加入到主题 CSS 自定义文件中的任意位置。这里需要修改部分内容，使得图标样式可以和主题样式保持一致。在这样设置好以后，就可以在博客需要额外图标的地方使用 <code>&lt;i class=&quot;iconfont icon-xxx&quot;&gt;&lt;/i&gt;</code> 的进行引用了。</p>
+<p>但是这里有一个问题，如果想在侧边栏的社交网站列表里加入知乎、豆瓣这类图标，就不是这样引用了。因为主题配置文件中，对侧边栏的社交网站图标的引用省略了 <code>class</code> 的部分内容，将其加入到了 <code>layout</code> 的模版里，所以现在不能直接填写 <code>zhihu</code> 或者 <code>icon-zhihu</code> 到主题配置文件中，所以我们需要重新设置一下自定义样式。</p>
+<h2 id="2-自定义样式配置"><a href="#2-自定义样式配置" class="headerlink" title="2. 自定义样式配置"></a>2. 自定义样式配置</h2><p>因为阿里巴巴矢量库里有多个知乎、豆瓣的图标，大小不一，即使设置了字体大小页可能无法和原始图像大小一致，这让强迫症的我不能忍，经过仔细挑选我终于找到了合适大小的两个图标。在主题 CSS 自定义文件中可以直接加入以下内容：</p>
+<figure class="highlight css"><figcaption><span>/source/_data/styles.styl</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//知乎豆瓣图标 <span class="attribute">font</span>-class引用</span><br><span class="line"><span class="keyword">@font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">&quot;iconfont&quot;</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;iconfont.eot?t=1528847148903&#x27;</span>); <span class="comment">/* IE9*/</span></span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;iconfont.eot?t=1528847148903#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), /* IE6-IE8 */</span><br><span class="line">  <span class="built_in">url</span>(<span class="string">&#x27;data:application/x-font-woff;charset=utf-8;base64,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&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>),</span><br><span class="line">  <span class="built_in">url</span>(<span class="string">&#x27;iconfont.ttf?t=1528847148903&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), /* chrome, firefox, opera, Safari, Android, iOS <span class="number">4.2</span>+*/</span><br><span class="line">  <span class="built_in">url</span>(<span class="string">&#x27;iconfont.svg?t=1528847148903#iconfont&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* iOS 4.1- */</span></span><br><span class="line">&#125;</span><br><span class="line">//以上是下载来自阿里巴巴矢量库的图标数据</span><br><span class="line">//以下代码相对下载下来的代码做了部分修改</span><br><span class="line"><span class="selector-class">.fa-custom</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>:<span class="string">&quot;iconfont&quot;</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attribute">font-size</span>:inherit;</span><br><span class="line">  <span class="attribute">font-style</span>:normal;</span><br><span class="line">  -webkit-<span class="attribute">font</span>-smoothing: antialiased;</span><br><span class="line">  -moz-osx-<span class="attribute">font</span>-smoothing: grayscale;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.zhihu</span>:before &#123; content: <span class="string">&quot;\e6ba&quot;</span>; &#125;</span><br><span class="line"><span class="selector-class">.douban</span>:before &#123; content: <span class="string">&quot;\e638&quot;</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>因为这里利用到了主题注入功能，所以需要在<strong>主题配置文件</strong>启用该功能：</p>
+<figure class="highlight diff"><figcaption><span>/themes/next/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> custom_file_path:</span><br><span class="line"><span class="deletion">-  #style: source/_data/styles.styl</span></span><br><span class="line"><span class="addition">+  style: source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-图标的应用"><a href="#3-图标的应用" class="headerlink" title="3. 图标的应用"></a>3. 图标的应用</h2><p>举个例子，在主题配置文件中，社交账号图标设置好以后，类似是以下这样的格式：</p>
+<figure class="highlight yaml"><figcaption><span>/themes/next/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">social:</span></span><br><span class="line">  <span class="attr">Twitter:</span> <span class="string">https://twitter.com/user_id</span> <span class="string">||</span> <span class="string">twitter</span></span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/user_id</span> <span class="string">||</span> <span class="string">github</span></span><br><span class="line">  <span class="attr">Zhihu:</span> <span class="string">https://www.zhihu.com/people/user_id</span> <span class="string">||</span> <span class="string">custom</span> <span class="string">zhihu</span></span><br><span class="line">  <span class="attr">Douban:</span> <span class="string">https://www.douban.com/people/user_id/</span> <span class="string">||</span> <span class="string">custom</span> <span class="string">douban</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+<span style="margin-top:30px; color:var(--blockquote-color); font-size:0.85em">
+        <span class="post-end-item" title="update">
+            <span class="post-end-item-icon" style="margin-right: 3px"><i class="far fa-fw fa-calendar-check"></i></span>
+            <time title="更新时间：2020-12-04 01:33:00" itemprop="dateModified" datetime="2020-12-03T17:33:00+00:00">
+                <span class="post-end-item-text">更新时间：2020-12-04</span>
+            </time>
+        </span>
+        <br>
+        <span class="post-end-item" title="copyright"">
+            <span class="post-end-item-icon" style="margin-right: 3px">
+                <i class="fab fa-fw fa-creative-commons"></i>
+            </span>
+            <span class="post-end-item-text">采用署名-非商业性使用-相同方式共享 4.0（CC BY-NC-SA 4.0）许可协议</span>
+        </span>
+</span>
+
+
+
+
+
+<div class="donations">
+    <div class="donation-label">您喜欢这篇文章？可以考虑赞赏一下作者呢？</div>
+    <a class="afdian-button" href="https://afdian.net/@app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fas fa-fw fa-bolt"></i>爱发电
+    </a>
+    <a class="paypal-button" href="https://paypal.me/app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fab fa-fw fa-paypal"></i>Paypal
+    </a>
+</div>
+          <div class="post-tags">
+              <a href="/overview/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/overview/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/31/" rel="prev" title="Hexo NexT 博客增加瀑布流相册页面">
+                  <i class="fa fa-chevron-left"></i> Hexo NexT 博客增加瀑布流相册页面
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/33/" rel="next" title="MacBook Pro 显示「不在充电」的解决方法">
+                  MacBook Pro 显示「不在充电」的解决方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LEE.</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+    <div class="pjax">
+
+  
+
+<script>
+NexT.utils.loadComments('#waline-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js', () => {
+    new Waline(Object.assign({
+      lang: 'zh-CN'
+    }, {"enable":true,"serverURL":"https://app318.vercel.app","placeholder":"填写昵称、邮箱即可留下你的观点与想法，邮件通知新回复。","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick","mail"],"avatarCDN":"https://sdn.geekzu.org/avatar/","lang":"zh-CN","langMode":{"admin":"可爱的博主","nick":"昵称（必填）","mail":"邮箱（必填）","link":"网址（http:// 选填）"}}, {
+      el: '#waline-comments',
+      path: "/posts/32/",
+    }));
+  }, window.Waline);
+});
+</script>
+
+
+
+<script type="text/javascript">
+if(window.location.hash){
+    var checkExist = setInterval(function() {
+        if ($(window.location.hash).length) {
+            $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+            clearInterval(checkExist);
+        }
+    }, 100);
+}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+/* @license Minigrid v3.1.1 – https://cdn.jsdelivr.net/npm/minigrid@3.1.1/dist/minigrid.min.js */
+!function(t, e) {
+	"function" == typeof define && define.amd ? define(e) : "object" == typeof exports ? module.exports = e() : t.Minigrid = e()
+}(this, function(t) {
+	"use strict";
+	function e(t, e) {
+		for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+		return t
+	}
+	var i = function(t) {
+			var i = t.container instanceof Node ? t.container : document.querySelector(t.container),
+				r = t.item instanceof NodeList ? t.item : i.querySelectorAll(t.item);
+			this.props = e(t, {
+				container: i,
+				nodeList: r
+			})
+		};
+	return i.prototype.mount = function() {
+		if (!this.props.container) return !1;
+		if (!this.props.nodeList || 0 === this.props.nodeList.length) return !1;
+		var t = "number" == typeof this.props.gutter && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter ? this.props.gutter : 0,
+			e = this.props.done,
+			i = this.props.container,
+			r = this.props.nodeList;
+		i.style.width = "";
+		var n = Array.prototype.forEach,
+			o = i.getBoundingClientRect().width,
+			s = r[0].getBoundingClientRect().width + t,
+			p = Math.max(Math.floor((o - t) / s), 1),
+			a = 0;
+		o = s * p + t + "px", i.style.width = o, i.style.position = "relative";
+		for (var c = [], u = [], l = 0; l < p; ++l) u.push(l * s + t), c.push(t);
+		this.props.rtl && u.reverse(), n.call(r, function(e) {
+			var i = c.slice(0).sort(function(t, e) {
+				return t - e
+			}).shift();
+			i = c.indexOf(i);
+			var r = parseInt(u[i]),
+				n = parseInt(c[i]);
+			e.style.position = "absolute", e.style.webkitBackfaceVisibility = e.style.backfaceVisibility = "hidden", e.style.transformStyle = "preserve-3d", e.style.transform = "translate3D(" + r + "px," + n + "px, 0)", c[i] += e.getBoundingClientRect().height + t, a += 1
+		}), i.style.display = "";
+		var f = c.slice(0).sort(function(t, e) {
+			return t - e
+		}).pop();
+		i.style.height = f + "px", "function" == typeof e && e(r)
+	}, i
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+<!-- weather -->
+<script type="text/javascript">
+WIDGET = {FID: 'R9msQQ9qtu'}
+</script>
+<script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+
+<script type="text/javascript" src="/js/hexo_resize_image.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

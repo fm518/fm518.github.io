@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#6c599f">
+<meta name="generator" content="Hexo 5.3.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/favicon-16x16.png">
+  <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images/safari-pinned-tab.svg" color="#6c599f">
+  <meta name="google-site-verification" content="SJUudYL5q_atXSgew2qwy69FXOnSnNB2rAmwHmcBT9U">
+  <meta name="baidu-site-verification" content="wvc37nzEad">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Sans:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"0272020.xyz","root":"/","images":"https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="使用宝塔面板下部署 Docker 应用还是挺容易的，首先需要安装 Docker 管理器。不过这个管理器在 Safari 浏览器中似乎有 bug，无法进行点击操作，但是在 Chrome 浏览器中可以正常操作。本文将通过这个 Docker 管理器来安装 RSSHub 这一 RSS 生成器和一个自动签到应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宝塔面板部署 RSSHub 和自动签到 Docker 应用">
+<meta property="og:url" content="https://0272020.xyz/posts/49/">
+<meta property="og:site_name" content="LEE.">
+<meta property="og:description" content="使用宝塔面板下部署 Docker 应用还是挺容易的，首先需要安装 Docker 管理器。不过这个管理器在 Safari 浏览器中似乎有 bug，无法进行点击操作，但是在 Chrome 浏览器中可以正常操作。本文将通过这个 Docker 管理器来安装 RSSHub 这一 RSS 生成器和一个自动签到应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/49/docker.png!600x">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/49/docker_mirror.jpg!500x">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/49/rsshub_docker.jpg!400x">
+<meta property="og:image" content="https://website-1256060851.file.myqcloud.com/posts/49/reverse_proxy.jpg!500x">
+<meta property="article:published_time" content="2020-04-15T15:30:50.000Z">
+<meta property="article:modified_time" content="2021-03-11T00:25:46.481Z">
+<meta property="article:author" content="LEE.">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="RSS">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://website-1256060851.file.myqcloud.com/posts/49/docker.png!600x">
+
+
+<link rel="canonical" href="https://0272020.xyz/posts/49/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<link rel="preconnect" href="https://anlu-1253254122.file.myqcloud.com" crossorigin>
+<link rel="preconnect" href="https://sdn.geekzu.org" crossorigin>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xiangsudian/CaoMei/style.min.css">
+
+<title>宝塔面板部署 RSSHub 和自动签到 Docker 应用 | LEE.</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141207776-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-141207776-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LEE." type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">LEE.</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">分享 & 记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fas fa-home fa-fw"></i>本站首页</a></li>
+        
+            
+  <li class="menu-item menu-item-overview"><a href="/overview/" rel="section"><i class="fas fa-archive fa-fw"></i>文章总览</a></li>
+
+
+      
+        <li class="menu-item menu-item-photos"><a href="/photos/" rel="section"><i class="fas fa-camera-retro fa-fw"></i>光影留痕</a></li>
+        <li class="menu-item menu-item-more"><a href="/more/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>关于更多</a></li>
+        <li class="menu-item menu-item-friends"><a href="/friends/" rel="section"><i class="fas fa-heart fa-fw"></i>友情链接</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-RSSHub%EF%BC%9A%E4%B8%87%E7%89%A9%E7%9A%86%E5%8F%AF-RSS"><span class="nav-text">1. RSSHub：万物皆可 RSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Docker-%E9%83%A8%E7%BD%B2"><span class="nav-text">1.1 Docker 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Docker-Compose-%E9%83%A8%E7%BD%B2"><span class="nav-text">1.2 Docker Compose 部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E7%AD%BE%E5%88%B0%E5%BA%94%E7%94%A8"><span class="nav-text">2. 自动签到应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%83%A8%E7%BD%B2%E5%AE%B9%E5%99%A8"><span class="nav-text">2.1 部署容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%8E%B7%E5%8F%96-Cookies"><span class="nav-text">2.2 获取 Cookies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE"><span class="nav-text">2.3 配置与备份数据</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="LEE."
+      src="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+  <p class="site-author-name" itemprop="name">LEE.</p>
+  <div class="site-description" itemprop="description">阅读/互联网/听歌/纪录片/电影</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/overview/timeline">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/overview/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/overview/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/1465528845" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;1465528845" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/626127114" title="哔哩哔哩 → https:&#x2F;&#x2F;space.bilibili.com&#x2F;626127114" rel="noopener" target="_blank"><i class="czs-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/fm518" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fm518" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://0272020.xyz/posts/49/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/app318/image/images/20210221152323.png">
+      <meta itemprop="name" content="LEE.">
+      <meta itemprop="description" content="阅读/互联网/听歌/纪录片/电影">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LEE.">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          宝塔面板部署 RSSHub 和自动签到 Docker 应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发布：</span>
+
+      <time title="创建时间：2020-04-15 23:30:50" itemprop="dateCreated datePublished" datetime="2020-04-15T23:30:50+08:00">2020-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类：</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/overview/%E7%A7%91%E6%8A%80%E6%A0%91/" itemprop="url" rel="index"><span itemprop="name">科技树</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">评论：</span>
+  
+    <a title="waline" href="/posts/49/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/49/" data-xid="/posts/49/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/posts/49/" class="post-meta-item leancloud_visitors" data-flag-title="宝塔面板部署 RSSHub 和自动签到 Docker 应用" title="阅读">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://website-1256060851.file.myqcloud.com/posts/49/docker.png!600x"></p>
+<p>使用宝塔面板下部署 Docker 应用还是挺容易的，首先需要安装 Docker 管理器。不过这个管理器在 Safari 浏览器中似乎有 bug，无法进行点击操作，但是在 Chrome 浏览器中可以正常操作。本文将通过这个 Docker 管理器来安装 RSSHub 这一 RSS 生成器和一个自动签到应用。<a id="more"></a></p>
+<h2 id="1-RSSHub：万物皆可-RSS"><a href="#1-RSSHub：万物皆可-RSS" class="headerlink" title="1. RSSHub：万物皆可 RSS"></a>1. RSSHub：万物皆可 RSS</h2><p>因为有些网站或者媒体没有主动提供 RSS 订阅链接，所以我们就可以依靠 RSSHub 这一个开源、简单易用、易于扩展的 RSS 生成器，给任何奇奇怪怪的内容生成 RSS 订阅源。</p>
+<h3 id="1-1-Docker-部署"><a href="#1-1-Docker-部署" class="headerlink" title="1.1 Docker 部署"></a>1.1 Docker 部署</h3><p>首先，打开 Docker 管理器，在「镜像管理」中获取官方库镜像 <code>diygod/rsshub</code>。</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/49/docker_mirror.jpg!500x" alt="获取镜像"></p>
+<p>然后，在「容器列表」创建新的 Docker 容器：</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/49/rsshub_docker.jpg!400x" alt="创建 RSSHub 容器"></p>
+<p>这里我们设置了：</p>
+<ul>
+<li>容器端口 1200 映射到服务器端口 1200；</li>
+<li>服务器目录 <code>/www/wwwroot/rsshub/</code> 可以读写容器目录 <code>/usr/src/app/</code>；</li>
+<li>CPU 权重改为 30。</li>
+</ul>
+<p>然后，我们创建一个新的网站，不需要创建新的数据库，PHP 设置为纯静态。把文章根目录下的文件都清空，然后把 RSSHub 源代码拉取到网站根目录 <code>/www/wwwroot/rsshub/</code>。这样的目的是以后有需要，可以直接修改该目录下的文件，而不需要进入 Docker 容器进行修改。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /www/wwwroot/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/diygod/rsshub.git rsshub</span><br></pre></td></tr></table></figure>
+<p>最后，设置反向代理，以便我们可以通过域名来访问该服务：</p>
+<p><img data-src="https://website-1256060851.file.myqcloud.com/posts/49/reverse_proxy.jpg!500x" alt="反向代理"></p>
+<p>这样，我们的 RSSHub 就完成了搭建，具体的配置和路由可以参见 <a target="_blank" rel="noopener" href="https://docs.rsshub.app/">RSSHub 文档</a>。</p>
+<h3 id="1-2-Docker-Compose-部署"><a href="#1-2-Docker-Compose-部署" class="headerlink" title="1.2 Docker Compose 部署"></a>1.2 Docker Compose 部署</h3><p>当然，我们也可以通过 Docker Compose 部署 RSSHub，部署步骤很简单，直接参考 RSSHub 文章介绍即可。部署完毕后也会显示在上面提及的 Docker 管理器中。</p>
+<p>当然首先需要先安装  Docker Compose，参照<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">文档说明</a>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载 Docker Compose 稳定发布版</span></span><br><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置访问权限</span></span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看安装版本</span></span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<p>接下来安装RSSHub：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载 docker-compose.yml</span></span><br><span class="line">wget https://raw.githubusercontent.com/DIYgod/RSSHub/master/docker-compose.yml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建 volume 持久化 Redis 缓存</span></span><br><span class="line">docker volume create redis-data</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动 Docker</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新：先执行以下命令删除旧容器，然后重复上述安装步骤</span></span><br><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>如果要添加配置，可以修改 <a target="_blank" rel="noopener" href="https://github.com/DIYgod/RSSHub/blob/master/docker-compose.yml">docker-compose.yml</a> 中的 <code>environment</code> 进行配置。</p>
+<h2 id="2-自动签到应用"><a href="#2-自动签到应用" class="headerlink" title="2. 自动签到应用"></a>2. 自动签到应用</h2><p><a target="_blank" rel="noopener" href="https://qiandao.today/">qiandao.today</a> 这个网站提供了自动签到的服务，上面提供了许多网站自动签到的模板。我们也可以利用公开的源代码自己搭建一个这样的自动签到应用。</p>
+<h3 id="2-1-部署容器"><a href="#2-1-部署容器" class="headerlink" title="2.1 部署容器"></a>2.1 部署容器</h3><p>这里采用 Docker Compose 部署的方法，比较方便快捷。首先创建一个 <code>docker-compose.yml</code>（目录任意，为方便管理可以放在站点的目录下）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">qiandao:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">fangzhengjin/qiandao</span> <span class="comment">#容器镜像</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">qiandao</span> <span class="comment">#设置容器名称</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span> <span class="comment">#表示重启 docker 后自动重启该容器</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;1300:80&#x27;</span> <span class="comment">#表示容器的 80 端口映射到服务器的 1300 端口</span></span><br></pre></td></tr></table></figure>
+<p>该目录下执行以下命令可以：启动、停止、移除容器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止（不需要在该目录下执行）</span></span><br><span class="line">docker stop qiandao</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 移除</span></span><br><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+<p>接下来我们按照前面介绍的方法设置反向代理，这样就可以访问之前设置的域名注册账号，再把该账号设置为管理员：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入容器管理（也可通过宝塔面板 Docker 管理器进入）</span></span><br><span class="line">docker exec -it qiandao /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置站点管理员（邮箱需要已注册）</span></span><br><span class="line">python ./chrole.py admin@example.com admin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出容器管理</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-获取-Cookies"><a href="#2-2-获取-Cookies" class="headerlink" title="2.2 获取 Cookies"></a>2.2 获取 Cookies</h3><p>签到模板可以从 <a target="_blank" rel="noopener" href="https://qiandao.today/">qiandao.today</a> 下载，具体使用方法可以查阅官方文档。对于需要获取 Cookies 进行签到的网站，我们可以安装 Chrome 扩展应用 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/cookies-get-assistant/ljjpkibacifkfolehlgaolibbnlapkme">GetCookies</a>。但是，这里下载安装的只限用于 qiandao.today 这个网站。如果我们要在自己搭建的签到网站获取 Cookies，可以：</p>
+<ul>
+<li>从 GitHub 下载<a target="_blank" rel="noopener" href="https://github.com/acgotaku/GetCookies">该项目的源代码</a>；</li>
+<li>全局搜索 <code>qiandao.today</code>，替换为自己的签到网站域名并保存；</li>
+<li>在 Chrome 浏览器的扩展程序管理页面（chrome://extensions），选择「加载已解压的扩展程序」，将刚才已经编辑过的扩展程序文件夹上传安装即可。</li>
+</ul>
+<h3 id="2-3-配置与备份数据"><a href="#2-3-配置与备份数据" class="headerlink" title="2.3 配置与备份数据"></a>2.3 配置与备份数据</h3><p>如果不希望别人访问我们的签到网站注册账号，可以把 <code>/web/handlers/login.py</code> 文件第 66-130 行的代码注释掉（前后均写上 <code>&#39;&#39;&#39;</code>）。编辑好该文件后，在该文件目录执行以下命令把文件复制到容器内：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 把文件复制到容器内</span></span><br><span class="line">docker cp login.py qiandao:/usr/src/app/web/handlers/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启容器</span></span><br><span class="line">docker restart qiandao</span><br></pre></td></tr></table></figure>
+<p>要备份我们的数据信息，可以执行如下命令，建议恢复数据库后立即重启容器（方法同上）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将容器中的数据库文件复制到当前目录</span></span><br><span class="line">docker cp qiandao:/usr/src/app/database.db .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将备份的数据库复制到容器中（当前目录的 database.db 文件）</span></span><br><span class="line">docker cp database.db qiandao:/usr/src/app/</span><br></pre></td></tr></table></figure>
+<p>调整相关配置，可以修改 <code>config.py</code> 文件，复制到容器方法和备份数据库文件到方法一样。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+
+<span style="margin-top:30px; color:var(--blockquote-color); font-size:0.85em">
+        <br>
+        <span class="post-end-item" title="copyright"">
+            <span class="post-end-item-icon" style="margin-right: 3px">
+                <i class="fab fa-fw fa-creative-commons"></i>
+            </span>
+            <span class="post-end-item-text">采用署名-非商业性使用-相同方式共享 4.0（CC BY-NC-SA 4.0）许可协议</span>
+        </span>
+</span>
+
+
+
+
+
+<div class="donations">
+    <div class="donation-label">您喜欢这篇文章？可以考虑赞赏一下作者呢？</div>
+    <a class="afdian-button" href="https://afdian.net/@app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fas fa-fw fa-bolt"></i>爱发电
+    </a>
+    <a class="paypal-button" href="https://paypal.me/app318" rel="nofollow noopener noreferrer" target="_blank">
+        <i class="fab fa-fw fa-paypal"></i>Paypal
+    </a>
+</div>
+          <div class="post-tags">
+              <a href="/overview/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+              <a href="/overview/tags/RSS/" rel="tag"><i class="fa fa-tag"></i> RSS</a>
+              <a href="/overview/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/48/" rel="prev" title="部署 RSS 订阅服务 FreshRSS">
+                  <i class="fa fa-chevron-left"></i> 部署 RSS 订阅服务 FreshRSS
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/50/" rel="next" title="Typecho 博客搭建尝试">
+                  Typecho 博客搭建尝试 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LEE.</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/next-boot.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/fm518/blogcdn@main/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+    <div class="pjax">
+
+  
+
+<script>
+NexT.utils.loadComments('#waline-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js', () => {
+    new Waline(Object.assign({
+      lang: 'zh-CN'
+    }, {"enable":true,"serverURL":"https://app318.vercel.app","placeholder":"填写昵称、邮箱即可留下你的观点与想法，邮件通知新回复。","avatar":"wavatar","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick","mail"],"avatarCDN":"https://sdn.geekzu.org/avatar/","lang":"zh-CN","langMode":{"admin":"可爱的博主","nick":"昵称（必填）","mail":"邮箱（必填）","link":"网址（http:// 选填）"}}, {
+      el: '#waline-comments',
+      path: "/posts/49/",
+    }));
+  }, window.Waline);
+});
+</script>
+
+
+
+<script type="text/javascript">
+if(window.location.hash){
+    var checkExist = setInterval(function() {
+        if ($(window.location.hash).length) {
+            $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+            clearInterval(checkExist);
+        }
+    }, 100);
+}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+/* @license Minigrid v3.1.1 – https://cdn.jsdelivr.net/npm/minigrid@3.1.1/dist/minigrid.min.js */
+!function(t, e) {
+	"function" == typeof define && define.amd ? define(e) : "object" == typeof exports ? module.exports = e() : t.Minigrid = e()
+}(this, function(t) {
+	"use strict";
+	function e(t, e) {
+		for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+		return t
+	}
+	var i = function(t) {
+			var i = t.container instanceof Node ? t.container : document.querySelector(t.container),
+				r = t.item instanceof NodeList ? t.item : i.querySelectorAll(t.item);
+			this.props = e(t, {
+				container: i,
+				nodeList: r
+			})
+		};
+	return i.prototype.mount = function() {
+		if (!this.props.container) return !1;
+		if (!this.props.nodeList || 0 === this.props.nodeList.length) return !1;
+		var t = "number" == typeof this.props.gutter && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter ? this.props.gutter : 0,
+			e = this.props.done,
+			i = this.props.container,
+			r = this.props.nodeList;
+		i.style.width = "";
+		var n = Array.prototype.forEach,
+			o = i.getBoundingClientRect().width,
+			s = r[0].getBoundingClientRect().width + t,
+			p = Math.max(Math.floor((o - t) / s), 1),
+			a = 0;
+		o = s * p + t + "px", i.style.width = o, i.style.position = "relative";
+		for (var c = [], u = [], l = 0; l < p; ++l) u.push(l * s + t), c.push(t);
+		this.props.rtl && u.reverse(), n.call(r, function(e) {
+			var i = c.slice(0).sort(function(t, e) {
+				return t - e
+			}).shift();
+			i = c.indexOf(i);
+			var r = parseInt(u[i]),
+				n = parseInt(c[i]);
+			e.style.position = "absolute", e.style.webkitBackfaceVisibility = e.style.backfaceVisibility = "hidden", e.style.transformStyle = "preserve-3d", e.style.transform = "translate3D(" + r + "px," + n + "px, 0)", c[i] += e.getBoundingClientRect().height + t, a += 1
+		}), i.style.display = "";
+		var f = c.slice(0).sort(function(t, e) {
+			return t - e
+		}).pop();
+		i.style.height = f + "px", "function" == typeof e && e(r)
+	}, i
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+<!-- weather -->
+<script type="text/javascript">
+WIDGET = {FID: 'R9msQQ9qtu'}
+</script>
+<script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+
+<script type="text/javascript" src="/js/hexo_resize_image.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
